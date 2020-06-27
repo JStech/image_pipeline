@@ -1300,8 +1300,8 @@ class StereoCalibrator(Calibrator):
         epierror = -1
 
         # Get display-images-to-be and detections of the calibration target
-        lscrib_mono, lcorners, lids, ldownsampled_corners, lboard, (x_scale, y_scale) = self.downsample_and_detect(lgray)
-        rscrib_mono, rcorners, rids, rdownsampled_corners, rboard, _ = self.downsample_and_detect(rgray)
+        lscrib_mono, lcorners, ldownsampled_corners, lids, lboard, (x_scale, y_scale) = self.downsample_and_detect(lgray)
+        rscrib_mono, rcorners, rdownsampled_corners, rids, rboard, _ = self.downsample_and_detect(rgray)
 
         if self.calibrated:
             # Show rectified images
@@ -1351,7 +1351,7 @@ class StereoCalibrator(Calibrator):
                 params = self.get_parameters(lcorners, lids, lboard, (lgray.shape[1], lgray.shape[0]))
                 if self.is_good_sample(params, lcorners, lids, self.last_frame_corners, self.last_frame_ids):
                     self.db.append( (params, lgray, rgray) )
-                    self.good_corners.append( (lcorners, rcorners, lboard) )
+                    self.good_corners.append( (lcorners, rcorners, lids, rids, lboard) )
                     print(("*** Added sample %d, p_x = %.3f, p_y = %.3f, p_size = %.3f, skew = %.3f" % tuple([len(self.db)] + params)))
 
         self.last_frame_corners = lcorners
